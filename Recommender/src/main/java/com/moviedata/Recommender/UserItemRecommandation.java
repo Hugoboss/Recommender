@@ -18,23 +18,19 @@ public class UserItemRecommandation
 {
     public static void main( String[] args ) throws Exception
     {
-    	// Datamodel contains the data from natschool (dataset) and the grouplens data (ratings)
-    	// UserSimilarity is based on pearson correlation formule
-    	// UserNeighborhood is based on Nearest Neighbor with minimum similarity of 0,35
     	DataModel model = new FileDataModel(new File("data/dataset.csv"));
     	// DataModel model = new FileDataModel(new File("data/ratings.csv"));
     	UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
-    	UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.35, similarity, model);
+    	UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
     	UserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
     	List<RecommendedItem> recommendations = recommender.recommend(7, 3);
-    	System.out.println("These are the articles the person also like to have included the expected rating:");
+    	System.out.println("These are the articles the person also like to have and the expected rating:");
     	for (RecommendedItem recommendation : recommendations) 
     	{
     		System.out.println(recommendation);
     	}
-    	long[] similarusers = recommender.mostSimilarUserIDs(7, 3);
-    	System.out.println("");
-    	System.out.println("These are the users similar to the person:");
+    	long[] similarusers = recommender.mostSimilarUserIDs(2, 3);
+    	System.out.println("These are the articles the person also like to have and the expected rating:");
     	for (long userrecommendation : similarusers) 
     	{
     		System.out.println(userrecommendation);
