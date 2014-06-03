@@ -30,6 +30,7 @@ public class UserItemRecommandation
     		System.out.println(recommendation);
     	}
     	long[] similarusers = recommender.mostSimilarUserIDs(2, 3);
+    	System.out.println("");
     	System.out.println("These are the articles the person also like to have and the expected rating:");
     	for (long userrecommendation : similarusers) 
     	{
